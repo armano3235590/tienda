@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArmandoCompras - Tienda de Ropa Online</title>
+    <style>
+        :root {
+            --primary-color: #6cad21;
+            --secondary-color: #19229b;
+            --light-color: #3f8845;
+            --dark-color: #7f7f8a;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+        }
+        
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/banner.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3367d6;
+        }
+        
+        .products {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 1rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: var(--dark-color);
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-image {
+            height: 250px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+            position: relative;
+        }
+        
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-info {
+            padding: 1rem;
+        }
+        
+        .product-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+        
+        .product-price {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .product-card .btn {
+            width: 100%;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 1rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-column ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 1rem;
+            border-top: 1px solid #444;
+            text-align: center;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        .creator-info {
+            margin-top: 1rem;
+            text-align: center;
+            color: #aaa;
+            font-size: 0.85rem;
+        }
+        
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -350px;
+            width: 350px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+            transition: right 0.3s;
+            z-index: 1000;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        
+        .cart-modal.open {
+            right: 0;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .close-cart {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark-color);
+        }
+        
+        .cart-items {
+            margin-bottom: 1rem;
+        }
+        
+        .cart-item {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            background-color: #f9f9f9;
+            margin-right: 1rem;
+        }
+        
+        .cart-item-details {
+            flex-grow: 1;
+        }
+        
+        .cart-item-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .cart-item-price {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: red;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        .cart-total {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .cart-buttons {
+            margin-top: 1rem;
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+        
+        .overlay.open {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+            
+            .cart-modal {
+                width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                Armando<span>Compras</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Hombres</a></li>
+                    <li><a href="#">Mujeres</a></li>
+                    <li><a href="#">Niños</a></li>
+                    <li><a href="#">Ofertas</a></li>
+                </ul>
+            </nav>
+            <div class="cart-icon" onclick="toggleCart()">
+                🛒
+                <span class="cart-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Armando tu estilo</h1>
+            <p>Descubre las últimas tendencias en moda para toda la familia</p>
+            <button class="btn btn-primary">Comprar ahora</button>
+        </div>
+    </div>
+
+    <section class="products">
+        <h2 class="section-title">Productos Destacados</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/camisa-casual.png" alt="Camisa Casual">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Camisa Casual</h3>
+                    <p class="product-price">$29.99</p>
+                    <button class="btn btn-primary" onclick="addToCart('Camisa Casual', 29.99, 'img/camisa-casual.png')">Añadir al carrito</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/jeans-clasico.jpeg" alt="Jeans Clásicos">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Jeans Clásicos</h3>
+                    <p class="product-price">$49.99</p>
+                    <button class="btn btn-primary" onclick="addToCart('Jeans Clásicos', 49.99, 'img/jeans-clasico.jpeg')">Añadir al carrito</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/vestido-elegante.jpeg" alt="Vestido Elegante">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Vestido Elegante</h3>
+                    <p class="product-price">$79.99</p>
+                    <button class="btn btn-primary" onclick="addToCart('Vestido Elegante', 79.99, 'img/vestido-elegante.jpeg')">Añadir al carrito</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="img/zapato.jpeg" alt="Zapatillas Deportivas">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Zapatillas Deportivas</h3>
+                    <p class="product-price">$59.99</p>
+                    <button class="btn btn-primary" onclick="addToCart('Zapatillas Deportivas', 59.99, 'img/zapato.jpeg')">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="cart-modal" id="cart-modal">
+        <div class="cart-header">
+            <h3>Carrito de compras</h3>
+            <button class="close-cart" onclick="toggleCart()">×</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Los items del carrito serán agregados dinámicamente -->
+        </div>
+        <div class="cart-total">
+            <span>Total:</span>
+            <span id="cart-total">$0.00</span>
+        </div>
+        <div class="cart-buttons">
+            <button class="btn btn-primary">Finalizar compra</button>
+            <button class="btn" style="background-color: #ccc;" onclick="clearCart()">Vaciar carrito</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="toggleCart()"></div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>ArmandoCompras</h3>
+                <p>Tu tienda de ropa online favorita con las mejores marcas y precios.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Enlaces</h3>
+                <ul>
+                    <li><a href="#">Inicio</a></li>
+                    <li><a href="#">Productos</a></li>
+                    <li><a href="#">Ofertas</a></li>
+                    <li><a href="#">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Categorías</h3>
+                <ul>
+                    <li><a href="#">Hombres</a></li>
+                    <li><a href="#">Mujeres</a></li>
+                    <li><a href="#">Niños</a></li>
+                    <li><a href="#">Accesorios</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contacto</h3>
+                <ul>
+                    <li>Email: info@armandocompras.com</li>
+                    <li>Teléfono: +123 456 789</li>
+                    <li>Dirección: Calle Comercio 123</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 ArmandoCompras. Todos los derechos reservados.</p>
+            <div class="creator-info">
+                <p>Desarrollado por: Armando Monterroza</p>
+                <p>Estudiante de Ingeniería de Software 1B - Universidad Cooperativa de Colombia</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let cartItems = [];
+        let cartCount = 0;
+        let cartTotal = 0;
+
+        function toggleCart() {
+            const cartModal = document.getElementById('cart-modal');
+            const overlay = document.getElementById('overlay');
+            cartModal.classList.toggle('open');
+            overlay.classList.toggle('open');
+        }
+
+        function addToCart(name, price, image) {
+            cartItems.push({
+                name: name,
+                price: price,
+                image: image,
+                quantity: 1
+            });
+            cartCount++;
+            cartTotal += price;
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItemsElement = document.getElementById('cart-items');
+            const cartCountElement = document.querySelector('.cart-count');
+            const cartTotalElement = document.getElementById('cart-total');
+            
+            cartItemsElement.innerHTML = '';
+            cartCountElement.textContent = cartCount;
+            cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
+            
+            cartItems.forEach((item, index) => {
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <h4 class="cart-item-title">${item.name}</h4>
+                        <p class="cart-item-price">$${item.price.toFixed(2)}</p>
+                        <button class="cart-item-remove" onclick="removeFromCart(${index})">Eliminar</button>
+                    </div>
+                `;
+                cartItemsElement.appendChild(cartItemElement);
+            });
+        }
+
+        function removeFromCart(index) {
+            cartTotal -= cartItems[index].price;
+            cartCount--;
+            cartItems.splice(index, 1);
+            updateCart();
+        }
+
+        function clearCart() {
+            cartItems = [];
+            cartCount = 0;
+            cartTotal = 0;
+            updateCart();
+        }
+    </script>
+</body>
+</html>
